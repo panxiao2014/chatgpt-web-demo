@@ -6,7 +6,9 @@ The web framework uses [Volt Dashboard Flask](https://appseed.us/product/volt-da
 
 Chat box html template and css style is borrowed from [studygyaan.com](https://studygyaan.com/python/create-web-based-chatbot-in-python-django-flask) by [H Sayyed](https://studygyaan.com/author/huzaif-sayedgmail-com).
 
-- For using 
+- For using
+- For using
+- Using this app needs user log in. To enable new user register,
 
 # [Volt Dashboard Flask](https://appseed.us/product/volt-dashboard/flask/)
 
