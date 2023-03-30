@@ -24,7 +24,7 @@ def chatWithDavinci3(currentUser, prompt):
             top_p=1,
             frequency_penalty=0.0,
             presence_penalty=0.6,
-            stop=[" User:", " Chatbot:"]
+            stop=None
         )
     except Exception as e:
         app.logger.warning(e)
@@ -36,7 +36,7 @@ def chatWithDavinci3(currentUser, prompt):
     return message
 
 
-def chatResponse(currentUser, prompt):
+def chatResponseFromDavinci(currentUser, prompt):
     global userConversations
 
     if currentUser not in userConversations:

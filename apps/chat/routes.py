@@ -1,5 +1,5 @@
 from apps.chat import blueprint
-from apps.chat.chatGptDemo import chatResponse
+from apps.chat.chatGptDavinci import chatResponseFromDavinci
 from apps.chat.chatGptTurbo import chatResponseFromTurbo
 from flask import render_template, request
 from flask import current_app as app
@@ -19,7 +19,7 @@ def userQuestion():
     app.logger.info("%s ask: %s" % (currentUser, inputText))
 
     #use text-davinci-003
-    #return chatResponse(currentUser, inputText)
+    #return chatResponseFromDavinci(currentUser, inputText)
 
     #use gpt-3.5-turbo:
     return chatResponseFromTurbo(currentUser, inputText)
