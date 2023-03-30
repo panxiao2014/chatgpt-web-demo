@@ -1,6 +1,6 @@
 This project utilize [flask-volt-dashboard](https://github.com/app-generator/flask-volt-dashboard) which supports running application in docker or on the host. By furtherly following below steps, it can achieve:
-- Both docker and host running method share the same database file
-- Source code change will take effect immediately for both running method
+- Both docker and host running methods share the same database file
+- Source code change will take effect immediately for both running methods
 
 ### 1. create a virtual env and install all neccessary libs:
    - virtualenv flask
@@ -15,11 +15,13 @@ flask db upgrade
 ```
 
 ### 3. move the created database file outside the project folder:
-   . mv apps/db.sqlite3 /opt/sqlite/flask/
+```
+mv apps/db.sqlite3 /opt/sqlite/flask/
+```
 
 ### 4. in dockerfile, since we already created the database, remove flask db related commands
 
-###5. in dockerfile, and following command:
+### 5. in dockerfile, add following command:
 ```bash
 WORKDIR /code
 ```
@@ -28,25 +30,13 @@ WORKDIR /code
 ```bash
 volumes:
     - .:/code
-    - /opt/sqlite/flask:/opt/sqlite/flask
+    - /volume1/dev/sqlite/flask:/volume1/dev/sqlite/flask
 ```
 
 The first mounted path is to mount the project folder to container working directory /code. So any code change in source files will take effect with docker running;
 The second mounted path is to mount the database file directory to container
 
-### 7. in source code where database path is defined (config.py), change url to the mounted database directory:
-    . SQLALCHEMY_DATABASE_URI = 'sqlite:////sqlite/db.sqlite3'
-
-
-### To start docker:
-```bash
-cd /volume1/dev/code/flask-volt-dashboard
-docker-compose up
+### 7. in *apps/__init__.py* where database path is defined, change url to the mounted database directory:
 ```
-
-### To start app on host, first activate the python virtual env and then start app by specifying port and address:
-```bash
-source /volume1/dev/virtualenv/flask/bin/activate
-cd /volume1/dev/code/flask-volt-dashboard
-flask run -p 5085 -h 192.168.0.114
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:////volume1/dev/sqlite/flask/db.sqlite3'
 ```
