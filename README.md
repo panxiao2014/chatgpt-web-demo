@@ -2,7 +2,7 @@
 
 A web based chat box by using ChatGPT API.
 
-The web framework uses [Volt Dashboard Flask](https://appseed.us/product/volt-dashboard/flask/). Please check source code on [flask-volt-dashboard].(https://github.com/app-generator/flask-volt-dashboard).
+The web framework uses [Volt Dashboard Flask](https://appseed.us/product/volt-dashboard/flask/). Please check source code on [flask-volt-dashboard](https://github.com/app-generator/flask-volt-dashboard).
 
 Chat box html template and css style is borrowed from [studygyaan.com](https://studygyaan.com/python/create-web-based-chatbot-in-python-django-flask) by [H Sayyed](https://studygyaan.com/author/huzaif-sayedgmail-com).
 
