@@ -9,6 +9,7 @@ Chat box html template and css style is borrowed from [studygyaan.com](https://s
 - For using
 - For using
 - Using this app needs user log in. To enable new user register,
+- When dubugging on frontend/backend connetivity and other UI related stuff, set .. in ..., this will gernerate some ramdon string as response instead of using ChatGPT API, to save API calling charged by OpenAI.
 
 # [Volt Dashboard Flask](https://appseed.us/product/volt-dashboard/flask/)
 
