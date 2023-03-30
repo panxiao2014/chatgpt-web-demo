@@ -1,6 +1,7 @@
 import openai
 from flask import current_app as app
 from apps.chat.fakeChat import FakeChat
+from apps.chat.chatUtil import ChatUtil
 
 f = open('apps/chat/openai_api_key.txt', 'r')
 openai.api_key = f.read()
@@ -11,6 +12,8 @@ fakeChat = FakeChat()
 
 #use model gpt-3.5-turbo:
 MaxToken = 4096
+
+chatUtil = ChatUtil()
 
 
 def parseFinishReason(userConversations, currentUser, finishReason):
@@ -51,6 +54,7 @@ def chatWithTurbo3(currentUser, chatConversation):
 
         message = response['choices'][0]['message']['content']
         message = message.strip()
+        message = chatUtil.processText(message)
     except Exception as e:
         app.logger.warning(e)
         userConversations[currentUser] = []
