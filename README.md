@@ -9,7 +9,7 @@ Chat box html template and css style is borrowed from [studygyaan.com](https://s
 - 👉 For using `text-davinci-003`, check [chatGptDavinci.py](apps/chat/chatGptDavinci.py)
 - 👉 For using `gpt-3.5-turbo`, check [chatGptTurbo.py](apps/chat/chatGptTurbo.py)
 - 👉 Using this app needs user log in. To enable new user register, comment out "register" block in file [login.html](apps/templates/accounts/login.html)
-- 👉 When dubugging on frontend/backend connetivity and other UI related stuff, set `FAKE_CHAT = True` in [chatGptDavinci.py](apps/chat/chatGptDavinci.py) or [chatGptTurbo.py](apps/chat/chatGptTurbo.py), this will gernerate some ramdon string as response instead of using ChatGPT API, to save API calling charged by OpenAI.
+- 👉 When debugging on frontend/backend connetivity and other UI related stuff, set `FAKE_CHAT = True` in [chatGptDavinci.py](apps/chat/chatGptDavinci.py) or [chatGptTurbo.py](apps/chat/chatGptTurbo.py), this will gernerate some ramdon string as response instead of using ChatGPT API, to save API calling charged by OpenAI.
 
 # Running app
 
