@@ -38,4 +38,4 @@ $ flask run -p port_num -h host_ip
 
 
 
-![screenshot](apps/static/assets/img/screenshot.png)
+![screenshot](apps/static/assets/img/screenshot.jpg)
