@@ -12,8 +12,14 @@ fakeChat = FakeChat()
 
 #use model gpt-3.5-turbo:
 MaxToken = 4096
+TokenMargin = 100
 
 chatUtil = ChatUtil()
+
+#reset user's conversation:
+def restConversation(userConversations, currentUser):
+    userConversations[currentUser] = [{"role": "system", "content": "You are a helpful assistant."}]
+    return
 
 
 def parseFinishReason(userConversations, currentUser, finishReason):
@@ -22,16 +28,17 @@ def parseFinishReason(userConversations, currentUser, finishReason):
     
     #conversation has exceeded maximum token allowed, need to re-init:
     if(finishReason == "length"):
-        userConversations[currentUser] = [{"role": "system", "content": "You are a helpful assistant."}]
+        #restConversation(userConversations, currentUser)
+        pass
     
     app.logger.warning("%s's chat return with reason: %s" % (currentUser, finishReason))
     return
 
 
 def parseTotalToken(userConversations, currentUser, totalToken):
-    if(totalToken > (MaxToken - 40)):
+    if(totalToken > (MaxToken - TokenMargin)):
         app.logger.warning("%s's total token reached %d, reset conversation" % (currentUser, totalToken))
-        userConversations[currentUser] = [{"role": "system", "content": "You are a helpful assistant."}]
+        restConversation(userConversations, currentUser)
 
     return
 
@@ -57,7 +64,7 @@ def chatWithTurbo3(currentUser, chatConversation):
         message = chatUtil.processText(message)
     except Exception as e:
         app.logger.warning(e)
-        userConversations[currentUser] = []
+        restConversation(userConversations, currentUser)
         return ("我出错了，请你再试试"), 0, "response_error"
     
     try:
@@ -74,7 +81,7 @@ def chatResponseFromTurbo(currentUser, prompt):
     global userConversations
 
     if currentUser not in userConversations:
-        userConversations[currentUser] = [{"role": "system", "content": "You are a helpful assistant."}]
+        restConversation(userConversations, currentUser)
 
     userConversations[currentUser].append({"role": "user", "content": prompt})
 
