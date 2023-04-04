@@ -52,7 +52,7 @@ def chatResponseFromDavinci(currentUser, prompt):
     else:
         botAnswer = fakeChat.giveAnswer()
     
-    app.logger.info("Response to %s: %s" % (currentUser, botAnswer))
+    app.logger.info("Response to %s" % (currentUser))
 
     userConversations[currentUser] += botAnswer
     return botAnswer

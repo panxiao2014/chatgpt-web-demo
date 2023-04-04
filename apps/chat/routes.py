@@ -16,7 +16,7 @@ def userQuestion():
     currentUser = current_user.username
     formData = request.get_json()
     inputText = formData.get('inputText')
-    app.logger.info("%s ask: %s" % (currentUser, inputText))
+    app.logger.info("%s asked" % (currentUser))
 
     #use text-davinci-003
     #return chatResponseFromDavinci(currentUser, inputText)

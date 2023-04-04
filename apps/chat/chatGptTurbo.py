@@ -10,6 +10,9 @@ openai.api_key = f.read()
 FAKE_CHAT = False
 fakeChat = FakeChat()
 
+#error message to fonrt user when something gose wrong:
+ErrMsg = "我出错了，您再重新试试？"
+
 #use model gpt-3.5-turbo:
 MaxToken = 4096
 TokenMargin = 100
@@ -17,7 +20,7 @@ TokenMargin = 100
 chatUtil = ChatUtil()
 
 #reset user's conversation:
-def restConversation(userConversations, currentUser):
+def resetConversation(userConversations, currentUser):
     userConversations[currentUser] = [{"role": "system", "content": "You are a helpful assistant."}]
     return
 
@@ -38,7 +41,7 @@ def parseFinishReason(userConversations, currentUser, finishReason):
 def parseTotalToken(userConversations, currentUser, totalToken):
     if(totalToken > (MaxToken - TokenMargin)):
         app.logger.warning("%s's total token reached %d, reset conversation" % (currentUser, totalToken))
-        restConversation(userConversations, currentUser)
+        resetConversation(userConversations, currentUser)
 
     return
 
@@ -51,7 +54,7 @@ def chatWithTurbo3(currentUser, chatConversation):
         response  = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=chatConversation,
-            temperature=0.1,
+            temperature=0.2,
             max_tokens=1024,
             top_p=1,
             frequency_penalty=0.0,
@@ -64,15 +67,16 @@ def chatWithTurbo3(currentUser, chatConversation):
         message = chatUtil.processText(message)
     except Exception as e:
         app.logger.warning(e)
-        restConversation(userConversations, currentUser)
-        return ("我出错了，请你再试试"), 0, "response_error"
+        resetConversation(userConversations, currentUser)
+        return (ErrMsg), 0, "response_error"
     
     try:
         totalToken = response['usage']['total_tokens']
         finishReason = response['choices'][0]['finish_reason']
     except Exception as e:
         app.logger.warning(e)
-        return ("我出错了，请你再试试"), 0, "parse_result_error"
+        resetConversation(userConversations, currentUser)
+        return (ErrMsg), 0, "parse_result_error"
 
     return message, totalToken, finishReason
 
@@ -81,7 +85,7 @@ def chatResponseFromTurbo(currentUser, prompt):
     global userConversations
 
     if currentUser not in userConversations:
-        restConversation(userConversations, currentUser)
+        resetConversation(userConversations, currentUser)
 
     userConversations[currentUser].append({"role": "user", "content": prompt})
 
@@ -90,7 +94,7 @@ def chatResponseFromTurbo(currentUser, prompt):
     else:
         botAnswer = fakeChat.giveAnswer()
     
-    app.logger.info("Response to %s with total token %d: %s" % (currentUser, totalToken, botAnswer))
+    app.logger.info("Response to %s with total token %d" % (currentUser, totalToken))
 
     userConversations[currentUser].append({"role": "assistant", "content": botAnswer})
 
