@@ -68,7 +68,7 @@ def chatWithTurbo3(currentUser, chatConversation):
     except Exception as e:
         app.logger.warning(e)
         resetConversation(userConversations, currentUser)
-        return (ErrMsg), 0, "response_error"
+        return ErrMsg, 0, "response_error"
     
     try:
         totalToken = response['usage']['total_tokens']
@@ -76,7 +76,7 @@ def chatWithTurbo3(currentUser, chatConversation):
     except Exception as e:
         app.logger.warning(e)
         resetConversation(userConversations, currentUser)
-        return (ErrMsg), 0, "parse_result_error"
+        return ErrMsg, 0, "parse_result_error"
 
     return message, totalToken, finishReason
 
@@ -96,7 +96,9 @@ def chatResponseFromTurbo(currentUser, prompt):
     
     app.logger.info("Response to %s with total token %d" % (currentUser, totalToken))
 
-    userConversations[currentUser].append({"role": "assistant", "content": botAnswer})
+    #we got a good response:
+    if(finishReason == "stop"):
+        userConversations[currentUser].append({"role": "assistant", "content": botAnswer})
 
     parseFinishReason(userConversations, currentUser, finishReason)
     parseTotalToken(userConversations, currentUser, totalToken)
