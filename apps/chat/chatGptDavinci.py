@@ -2,7 +2,7 @@ import openai
 from flask import current_app as app
 from apps.chat.fakeChat import FakeChat
 
-f = open('apps/chat/openai_api_key.txt', 'r')
+f = open('apps/configs/openai_api_key.txt', 'r')
 openai.api_key = f.read()
 
 #use for debugging, so no api credit is spent

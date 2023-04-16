@@ -35,3 +35,4 @@ migrations
 
 apps/chat/openai_api_key.txt
 nohup.out
+apps/configs/openai_api_key.txt
