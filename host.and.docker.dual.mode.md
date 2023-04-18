@@ -8,9 +8,11 @@ This project utilize [flask-volt-dashboard](https://github.com/app-generator/fla
    - pip3 install -r requirements.txt
 
 
-### 2. upload openai api key
+### 2. upload openai api key and create log directory
 
-Put the key string to file configs/openai_api_key.txt
+Create directory `configs` in folder `apps`, put your openai API key string to file apps/configs/openai_api_key.txt
+
+Create directory `logs` in folder `apps`
 
 ### 3. go to project folder, use following command to init and create database file:
 
