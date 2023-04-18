@@ -14,7 +14,7 @@ Put the key string to file configs/openai_api_key.txt
 
 ### 3. go to project folder, use following command to init and create database file:
 
-In apps/__init__.py, set database uri:
+In apps/\_\_init\_\_.py, set database uri:
 
 ```bash
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
