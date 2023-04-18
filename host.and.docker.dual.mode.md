@@ -13,13 +13,27 @@ This project utilize [flask-volt-dashboard](https://github.com/app-generator/fla
 Put the key string to file configs/openai_api_key.txt
 
 ### 3. go to project folder, use following command to init and create database file:
+
+In apps/__init__.py, set database uri:
+
+```bash
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+```
+In apps/config.py, also set the database uri:
+
+```bash
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+```
+
+
 ```bash
 flask db init
 flask db migrate
 flask db upgrade
 ```
+This will create a file db.sqlite3 in folder `apps`
 
-### 4. move the created database file outside the project folder:
+### 4. move the created database file outside the project folder, for example:
 ```
 mv apps/db.sqlite3 /opt/sqlite/flask/
 ```
@@ -35,7 +49,7 @@ WORKDIR /code
 ```bash
 volumes:
     - .:/code
-    - /volume1/dev/sqlite/flask:/volume1/dev/sqlite/flask
+    - /opt/sqlite/flask/:/opt/sqlite/flask/
 ```
 
 The first mounted path is to mount the project folder to container working directory /code. So any code change in source files will take effect with docker running;
@@ -43,5 +57,5 @@ The second mounted path is to mount the database file directory to container
 
 ### 8. in *apps/__init__.py* where database path is defined, change url to the mounted database directory:
 ```
-app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:////volume1/dev/sqlite/flask/db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:////opt/sqlite/flask/db.sqlite3'
 ```
