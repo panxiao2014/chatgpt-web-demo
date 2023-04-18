@@ -24,7 +24,7 @@ In apps/config.py, also set the database uri:
 ```bash
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
 ```
-
+Then init the database:
 
 ```bash
 flask db init
@@ -55,7 +55,7 @@ volumes:
 The first mounted path is to mount the project folder to container working directory /code. So any code change in source files will take effect with docker running;
 The second mounted path is to mount the database file directory to container
 
-### 8. in *apps/__init__.py* where database path is defined, change url to the mounted database directory:
+### 8. in *apps/\_\_init\_\_.py* where database path is defined, change url to the mounted database directory:
 ```
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:////opt/sqlite/flask/db.sqlite3'
 ```
