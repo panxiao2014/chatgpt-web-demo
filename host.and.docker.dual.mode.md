@@ -7,26 +7,31 @@ This project utilize [flask-volt-dashboard](https://github.com/app-generator/fla
    - source flask/bin/activate
    - pip3 install -r requirements.txt
 
-### 2. go to project folder, use following command to init and create database file:
+
+### 2. upload openai api key
+
+Put the key string to file configs/openai_api_key.txt
+
+### 3. go to project folder, use following command to init and create database file:
 ```bash
 flask db init
 flask db migrate
 flask db upgrade
 ```
 
-### 3. move the created database file outside the project folder:
+### 4. move the created database file outside the project folder:
 ```
 mv apps/db.sqlite3 /opt/sqlite/flask/
 ```
 
-### 4. in dockerfile, since we already created the database, remove flask db related commands
+### 5. in dockerfile, since we already created the database, remove flask db related commands
 
-### 5. in dockerfile, add following command:
+### 6. in dockerfile, add following command:
 ```bash
 WORKDIR /code
 ```
 
-### 6. in docker-compose.yml, mount two directoies:
+### 7. in docker-compose.yml, mount two directoies:
 ```bash
 volumes:
     - .:/code
@@ -36,7 +41,7 @@ volumes:
 The first mounted path is to mount the project folder to container working directory /code. So any code change in source files will take effect with docker running;
 The second mounted path is to mount the database file directory to container
 
-### 7. in *apps/__init__.py* where database path is defined, change url to the mounted database directory:
+### 8. in *apps/__init__.py* where database path is defined, change url to the mounted database directory:
 ```
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI = 'sqlite:////volume1/dev/sqlite/flask/db.sqlite3'
 ```
