@@ -93,6 +93,8 @@ def chatResponseFromTurbo(currentUser, prompt):
         botAnswer, totalToken, finishReason= chatWithTurbo3(currentUser,  userConversations[currentUser])
     else:
         botAnswer = fakeChat.giveAnswer()
+        totalToken = 0
+        finishReason = "stop"
     
     app.logger.info("Response to %s with total token %d" % (currentUser, totalToken))
 
