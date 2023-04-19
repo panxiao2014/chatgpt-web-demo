@@ -84,6 +84,8 @@ def chatWithTurbo3(currentUser, chatConversation):
 def chatResponseFromTurbo(currentUser, prompt):
     global userConversations
 
+    #app.logger.info("User %s Encrypted prompt %s" % (currentUser, prompt))
+
     if currentUser not in userConversations:
         resetConversation(userConversations, currentUser)
 

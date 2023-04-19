@@ -36,3 +36,6 @@ migrations
 apps/chat/openai_api_key.txt
 nohup.out
 apps/configs/openai_api_key.txt
+apps/static/assets/js/@eaDir/all.js@SynoEAStream
+apps/static/assets/js/@eaDir/aes.js@SynoEAStream
+apps/static/assets/js/@eaDir/axios.min.js@SynoEAStream

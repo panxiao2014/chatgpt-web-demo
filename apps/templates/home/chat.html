@@ -39,9 +39,10 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="static/assets/js/axios.min.js"></script>
+<script src="static/assets/js/aes.js"></script>
+<script src='static/assets/js/all.js'></script>
 
-<script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
 <script>
     const msgerForm = get(".msger-inputarea");
     const msgerInput = get(".msger-input");
@@ -51,6 +52,8 @@
     const PERSON_IMG = "static/assets/img/person.svg";
     const BOT_NAME = "ChatGpt";
     const PERSON_NAME = "You";
+
+    const chatKey = "nrTXKREy3cjjAGcwC36ec1XbzMMUs0U2TLqy2X8jamo=";
 
     botMsg = '';
 
@@ -85,6 +88,11 @@
       msgerChat.scrollTop += 500;
     }
 
+    function encryptMessage(userInput) {
+      //var encryptedMessage = CryptoJS.AES.encrypt(userInput, chatKey)
+      return userInput;
+    }
+
     function botResponse(rawText) {
         // $.get("/get", { msg: rawText }).done(function (data) {
         // console.log(rawText);
@@ -100,7 +108,10 @@
             inputText: rawText
         };
 
-        axios.post(serverPostUrl, userInput)
+        //message encryption:
+        const userInputEncrypt = encryptMessage(userInput);
+
+        axios.post(serverPostUrl, userInputEncrypt)
             .then((response) => { appendMessage(BOT_NAME, BOT_IMG, "left", response.data); });
     }
 
