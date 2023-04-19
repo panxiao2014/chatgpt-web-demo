@@ -66,7 +66,7 @@ def chatWithTurbo3(currentUser, chatConversation):
         message = message.strip()
         message = chatUtil.processText(message)
     except Exception as e:
-        app.logger.warning(e)
+        app.logger.warning("User {} meet error: {}".format(currentUser, e))
         resetConversation(userConversations, currentUser)
         return ErrMsg, 0, "response_error"
     
