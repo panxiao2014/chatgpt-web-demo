@@ -13,8 +13,9 @@ fakeChat = FakeChat()
 #error message to fonrt user when something gose wrong:
 ErrMsg = "我出错了，您再重新试试？"
 
-#use model gpt-3.5-turbo:
-MaxToken = 4096
+#Model definition:
+ModelName = "gpt-3.5-turbo-0613"
+MaxToken = 16*1024
 TokenMargin = 100
 
 chatUtil = ChatUtil()
@@ -52,7 +53,7 @@ def chatWithTurbo3(currentUser, chatConversation):
     
     try:
         response  = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=ModelName,
             messages=chatConversation,
             temperature=0.2,
             max_tokens=1024,
